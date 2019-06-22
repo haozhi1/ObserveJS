@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <script src="../src/observe.js"></script>
+        <script>
+            window.test0 = { foo: {}}
+            ObserveJS.observe(test0, ['foo'], (prop, oldVal, newVal) => {console.log(prop, oldVal, newVal)});
+            test0.foo.test = 1;
+            test0.foo.test = 2;
+            test0.foo.test = 3;
+            test0.foo = [1,1,1,1,1];
+            test0.foo.fill(false);
+            test0.foo = {}
+            test0.foo = new Map();
+            test0.foo.set('key1', 1);
+            test0.foo.set('key2', 2);
+            test0.foo = {};
+            test0.foo.name = 'name';
+            test0.foo.test = 32;
+            test0.foo = 123456;
+            test0.foo = 'I am a string';
+            test0.foo = [1,2,3,4];
+            test0.foo.shift();
+            ObserveJS.unobserveAll(test0);
+
+            window.test1 = { 
+                l0: {
+                    l1: {
+                        name: 'test1',
+                        l2: {
+                            name: 'test2',
+                            l3: {
+                                l4: {
+                                    level4: true
+                                },
+                                level3: true
+                            }
+                        }
+                    }
+                }
+            };
+            ObserveJS.observe(test1, 'l0', (prop, oldVal, newVal) => {console.log(prop, oldVal, newVal)}, { depth:  4 });
+            test1.l0.name = 'l0 name';
+            test1.l0.l1.name = 'l1 name';
+            test1.l0.l1.l2.name = 'l2 name';
+            test1.l0.l1.l2.l3.level3 = 1;
+            test1.l0.l1.l2.l3.l4.level4 = 1;
+            
+            ObserveJS.unobserve(test1, 'l0');
+            test1.l0.name = 'l0 name after';
+            test1.l0.l1.name = 'l1 name after';
+            ObserveJS.observe(test1, 'l0', (prop, oldVal, newVal) => {console.log(prop, oldVal, newVal)}, { depth:  2 });
+            test1.l0.name = 'l0 name new';
+            test1.l0.l1.l2.l3.l4.level4 = 300;
+            ObserveJS.unobserveAll(test1);
+
+
+            let obj = {
+	foo: 123,
+	bar: 456,
+    arr: [],
+    nested: {
+    	level1: {
+        	name: 'lv1',
+			level2: {
+        		name: 'lv2'
+        	}
+        }
+    }
+};
+
+ObserveJS.observe(obj, 'nested', (propName, oldVal, newVal) => {
+	console.log(propName, oldVal, newVal);
+}, { depth:  2 });
+
+obj.nested.level1.level2.name = 'lv2Name';
+
+        </script>
+    </head>
+    <body>
+        <h1>Test</h1>
+        <h1>Use dev tool to see result</h1>
+    </body>
+</html>
