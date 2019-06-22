@@ -14,21 +14,23 @@ First download observe.js, then include it in your HTML page via a script tag
 ## Methods
 
 ```javascript
-	/* parameters
-	* target: object to be observed
-	* prop: property to be observed, can be a string or an array of string
-	* callback: callback when the observed properties change
-	* opts: addtional options
-	*		- depth: determines how deep do you wish to observe the properties
-	*/
-	ObserveJS.observe(target, prop, callback);
-    
-	/* parameters
-	* target: object to be unobserved
-	* prop: property to be unobserved, can be a string or an array of string
-	*/
-    ObserveJS.unobserve(target, prop);
-    ObserveJS.unobserveAll(target);
+/* Parameters
+ *
+ * - target: object to be observed
+ * - prop: property to be observed, can be a string or an array of string
+ * - callback: callback when the observed properties change
+ * - opts: addtional options
+ * 	 - depth: determines how deep do you wish to observe the properties
+ */
+ObserveJS.observe(target, prop, callback);
+
+/* Parameters
+ *
+ * - target: object to be unobserved
+ * - prop: property to be unobserved, can be a string or an array of string
+ */
+ObserveJS.unobserve(target, prop);
+ObserveJS.unobserveAll(target);
 ```
 
 
